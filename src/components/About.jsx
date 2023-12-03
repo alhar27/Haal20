@@ -1,10 +1,61 @@
-import React from 'react'
-import logo from '../assets/angryCat.png'
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
+import React, { useEffect, useState } from 'react';
+import logo from '../assets/angryCat.png';
 import { almaColors } from '../styles/SharedStyles';
-import { Contact } from './shared/Contact';
 
 export const About = () => {
+  const [text, setText] = useState('');
+  const words = ['Software Engineer', 'Programmer', 'Fullstack Developer', 'Coder'];
+  let wordIndex = 0;
+  let letterIndex = 0;
+  
+  useEffect(() => {
+    const type = () => {
+      let newWord = '';
+      let i = 0;
+      const intervalId = setInterval(() => {
+        if (i < words[wordIndex].length) {
+          newWord += words[wordIndex][i];
+          setText(newWord);
+          i++;
+        } else {
+          clearInterval(intervalId);
+          wordIndex = (wordIndex + 1) % words.length; // Move to the next word
+          // if (wordIndex !== 0) { // If it's not the first word, start typing it after a delay
+            setTimeout(type, 2000);
+          // }
+        }
+      }, 100);
+    };
+
+    const erase = () => {
+      let i = text.length;
+      const intervalId = setInterval(() => {
+        if (i > 0) {
+          setText(text.slice(0, i-1));
+          i--;
+        } else {
+          clearInterval(intervalId);
+          wordIndex = (wordIndex + 1) % words.length;
+          setTimeout(type, 2000);
+        }
+      }, 100);
+    };
+    // const erase = () => {
+    //   if (letterIndex > 0) {
+    //     setText((prevText) => prevText.slice(0, prevText.length - 1));
+    //     letterIndex--;
+    //     setTimeout(erase, 100);
+    //   } else {
+    //     wordIndex = (wordIndex + 1) % words.length;//wordIndex < words.length - 1 ? wordIndex + 1 : 0;
+    //     letterIndex = 0; // Reset letterIndex after each word
+    //     setTimeout(type, 1000);
+    //   }
+    // };
+
+    type();
+  }, []);
+
   return (
     <StyledAboutContainerDiv>
       <StyledAboutBoxDiv>
@@ -15,7 +66,7 @@ export const About = () => {
         <StyledBoxDiv>
           Alma Härlin
         </StyledBoxDiv>
-        Software Engineer Trainee @IKEA
+        {text} @IKEA
       </StyledAboutBoxDiv>
     </StyledAboutContainerDiv>
   )

@@ -1,8 +1,8 @@
-import React from 'react'
 import styled from '@emotion/styled'
+import React from 'react'
+import { BsArrowUp } from 'react-icons/bs'
 import { almaColors, StyledAppLink } from '../styles/SharedStyles'
 import { Contact } from './shared/Contact'
-import { BsArrowUp } from 'react-icons/bs'
 
 export const Footer = () => {
   return (
@@ -16,7 +16,7 @@ export const Footer = () => {
         (╯°□°）╯︵ ┻━┻
       </StyleFlippDiv>
       <div>
-        Made with ❤️ in SWE © 2022
+        Made with ❤️ in SWE © 2023
       </div>
     </StyledFooterContainerDiv>
   )
